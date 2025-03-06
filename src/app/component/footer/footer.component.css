@@ -1,0 +1,12 @@
+.send-email::placeholder{
+    color :rgb(204, 211, 218)
+}
+footer a {
+    text-decoration: none;
+
+}
+
+footer li {
+    margin: 10px;
+    color: rgb(188, 192, 195);
+}
