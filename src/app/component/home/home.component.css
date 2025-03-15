@@ -6,3 +6,6 @@
     top: 16%;
     right: 3%; 
 }
+.position-relative:hover .hover-button {
+    display: block !important;
+  }

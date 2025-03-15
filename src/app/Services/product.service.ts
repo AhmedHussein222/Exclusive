@@ -12,6 +12,11 @@ export class ProductService {
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`${environment.baseUrl}/products`); // 'http://localhost:3000/product'
   }
+
+  getRelatedProducts(category:string): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(`${environment.baseUrl}/products/?category.name=${category}&_limit=4`); // 'http://localhost:3000/product'
+  }
+
   getProductByID(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(`${environment.baseUrl}/products/${id}`);
   }
@@ -24,12 +29,49 @@ export class ProductService {
       product
     );
   }
+
+
+
+
+  // update ctegory to epul only name 
+  
+  // updateProductCategories(): Observable<IProduct[]> {
+  //   return this.getProducts().pipe(
+  //     switchMap(products => {
+  //       const updates = products.map(product => {
+  //         const updatedProduct = { ...product, category: product.category.name };
+  //         return this.updateProduct(updatedProduct);
+  //       });
+  //       return new Observable<IProduct[]>(observer => {
+  //         Promise.all(updates).then(results => {
+  //           observer.next(results);
+  //           observer.complete();
+  //         });
+  //       });
+  //     })
+  //   );
+  // }
+
   addToWishlist(product: IProduct): Observable<IProduct> {
     return this.http.post<IProduct>(
       `${environment.baseUrl}/wishlist/`,
       product
     );
   }
+
+  getWishlistProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(
+      `${environment.baseUrl}/wishlist/`);
+  }
+
+  addToCart(product: IProduct): Observable<IProduct> {
+    return this.http.post<IProduct>(
+      `${environment.baseUrl}/cart/`,
+      product
+    );
+  }
+
+
 /*
   checkInWishlist(product: IProduct): Observable<boolean> {
     return this.http.get<IProduct[]>(`${environment.baseUrl}/wishlist/?id=${product.id}`)

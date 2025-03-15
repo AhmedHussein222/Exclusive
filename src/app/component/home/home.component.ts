@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, viewChild } from '@angular/core';
 import { IProduct } from '../../Models/iproduct'
 import { ICategory } from '../../Models/icategory'
 import { FormsModule } from '@angular/forms';
@@ -21,6 +21,7 @@ import { ProductService } from '../../Services/product.service';
 export class HomeComponent {
   productSearch: IProduct[] = []
   isFavorite:boolean= false; 
+  // @viewChild('id') favorite!: ElementRef
 
 
 
@@ -1232,9 +1233,17 @@ constructor(private _ProductService:ProductService){
   ]
 
   toggleFavorite(product: IProduct) {
+
+    let heartIcon = document.getElementById(product.id.toString());
     this._ProductService.checkInWishlist(product).subscribe({
-      next: (status) => {
-        this.isFavorite = status
+      next: () => {
+        
+
+          heartIcon!.classList.toggle('bi-heart');
+          heartIcon!.classList.toggle('bi-heart-fill');
+
+        
+
       }
     })
   }

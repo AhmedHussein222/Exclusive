@@ -1,17 +1,142 @@
-<div class="d-flex p-5 m-auto">
-    <div class="col-2">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+
+  <!-- Breadcrumb -->
+  <div class="container mt-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-secondary">Account</a></li>
+        <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-secondary">Gaming</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Havic HV G-92 Gamepad</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Product Section -->
+  <div class="container my-4">
+    <div class="d-flex justify-content-between  align-items-between  p-1 mt-5 mb-4">
+      <!-- Product Thumbnails -->
+      <div class="col-md-2 d-none d-md-flex justify-content-around flex-column ">
+        @for (item of product!.images; track $index) {
+
+            <div class="border mb-2 p-1">
+              <img [src]="item" class="img-fluid" alt="Gamepad thumbnail">
+            </div>
+        }
+
+      </div>
+
+      <!-- Main Product Image -->
+      <div class="col-md-4 d-flex align-items-center  ">
+        <div class="border my-auto align-self-center p-2 text-center">
+          <img [src]="product.images[0]" class="img-fluid" alt="Havic HV G-92 Gamepad">
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="col-md-5">
+        <h2 class="mb-2">{{product.title}}</h2>
+        <div class="d-flex align-items-center mb-2">
+          <div class="text-warning me-2">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <span class="text-muted">(150 Reviews)</span>
+          <span class="ms-3 text-success"><i class="fas fa-circle me-1 small"></i>In Stock</span>
+        </div>
+        <h3 class="mb-3">{{product.price|currency}}</h3>
+        <p class="text-muted mb-4">{{product.description}}</p>
+        <hr>
+
+        <!-- Color Options -->
+        <div class="mb-3">
+          <p class="mb-2">Colours:</p>
+          <div class="d-inline-block rounded-circle p-2 border border-primary me-2" style="width: 30px; height: 30px; background-color: white;"></div>
+          <div class="d-inline-block rounded-circle p-2 border me-2" style="width: 30px; height: 30px; background-color: #ff7a89;"></div>
+        </div>
+
+        <!-- Size Options -->
+        <div class="mb-3">
+          <p class="mb-2">Size:</p>
+          <span class="d-inline-block border px-3 py-1 me-2">XS</span>
+          <span class="d-inline-block border px-3 py-1 me-2">S</span>
+          <span class="d-inline-block bg-danger text-white border border-danger px-3 py-1 me-2">M</span>
+          <span class="d-inline-block border px-3 py-1 me-2">L</span>
+          <span class="d-inline-block border px-3 py-1 me-2">XL</span>
+        </div>
+
+        <!-- Quantity and Buy Buttons -->
+        <div class="d-flex  mb-4">
+          <div class="input-group me-3  w-25" >
+            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+            <input type="text" class=" text-center w-25 "  value="2">
+            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+          </div>
+          <button class="btn btn-danger w-50 me-3 ms-0">Buy Now</button>
+          <button class="btn btn-outline-dark"><i class="far fa-heart"></i></button>
+        </div>
+
+        <!-- Delivery Information -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-truck fa-2x me-3"></i>
+              <div>
+                <h6 class="mb-0">Free Delivery</h6>
+                <small class="text-muted">Enter your postal code for Delivery Availability</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-exchange-alt fa-2x me-3"></i>
+              <div>
+                <h6 class="mb-0">Return Delivery</h6>
+                <small class="text-muted">Free 30 Days Delivery Returns. <a href="#">Details</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
+  </div>
 
-    <div class="col-5">
-        <img [src]="product.images[0]"  class="" alt="">
-    </div>
+  <!-- Related Products -->
+  <div class="container my-5">
+    <h4 class="border-start border-4 border-danger ps-3 mb-4">Related Item</h4>
+    <div class="d-flex  justify-content-around text-center overview-hidden flex-wrap py-2 ">
+        
+      @for (product of relatedProducts; track $index) {
+          <div class="border col-2 ">
+              <div class="col-12 position-relative">
+                  <img class="col-12 " [src]="product.images[0]"  alt="">
+                  <div class="position-absolute bg-danger text-white px-2 py-1" style="top: 5px; left: 5px;">-30%</div>
 
-    <div>
+
+                  <button  class="btn btn-dark text-white position-absolute top-35 start-50 w-100 translate-middle d-none p-0 m-0  hover-button">
+                      Add to Cart
+                  </button>
+                  <i [routerLink]="['/product-details', product.id]" class="eye-icon bi bi-eye position-absolute fs-6 rounded-circle px-1 py-0 bg-light bg"></i>
+                  <i [id]="product.id" (click)="toggleFavorite(product)"  class=" heart-icon bi  bi-heart text-danger  position-absolute fs-6 rounded-circle px-1 py-0 text-blacka  bg-light"></i>
+              </div>
+              <div class="text-start p-2 pb-0">
+                  <p  class="mb-1 ">{{product.title}}</p>
+                  <p  class="m-0 ">
+                      <span class="text-danger ">{{product.price - (product.price*.10)|currency}}</span>
+                      <span class=" text-decoration-line-through ms-4">{{product.price|currency}}</span> 
+                  </p>
+                  <div class="p-0 m-0" >
+
+                      <img   src="Five star.png" alt="" >
+                      <span class="text-dark">(69)</span>
+                  </div>
 
 
-    </div>
-</div>
+              </div>
+          </div>
+      }
+  </div>
+
+  </div>
+
+
